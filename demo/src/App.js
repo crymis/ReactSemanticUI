@@ -1,9 +1,10 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Button, Icon, Grid, Rating } from 'semantic-ui-react';
-import CardExample from './components/CardExample';
+import { Button, Icon, Grid, Rating, Popup, Dropdown } from 'semantic-ui-react';
+import CardGallery from './components/CardGallery';
 import { getSomeImages } from './data/images';
+import { languageOptions } from './data/text';
 
 class App extends React.Component {
 
@@ -22,7 +23,7 @@ class App extends React.Component {
       this.setState(() => { return {rating: props.rating} });
     }
     return (
-      <CardExample images={getSomeImages(this.state.rating)}/>
+      <CardGallery images={getSomeImages(this.state.rating)}/>
     )
   }
 
@@ -30,7 +31,7 @@ class App extends React.Component {
     return (
       <Grid padded="vertically">
         <Grid.Row>
-          <Grid.Column>
+          <Grid.Column width={12}>
             <div className="App">
               <div className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
@@ -38,16 +39,22 @@ class App extends React.Component {
               </div>
             </div>
           </Grid.Column>
+          <Grid.Colum width={4}>
+            <Dropdown text='Select Language' search floating labeled button className='icon' options={languageOptions} />
+          </Grid.Colum>
         </Grid.Row>
         <Grid.Row centered>
           <Grid.Column>
             <p className="App-intro">Try out Semantic UI React</p>
-            <Rating 
-              ref={(rating) => {this.numberOfImages = rating; }} 
-              maxRating={8} 
-              defaultRating={1} 
-              icon='star'
-              onRate={(e, props) => this.renderImageCards(e, props)}/><br />
+            <Popup content='How many images?' position='right center' trigger={
+              <Rating 
+                ref={(rating) => {this.numberOfImages = rating; }} 
+                maxRating={8} 
+                defaultRating={1} 
+                icon='star'
+                onRate={(e, props) => this.renderImageCards(e, props)}/>
+              } />
+            <br />
             <Button 
               animated='vertical'
               onClick={(e) => this.toggleClick(e)}
