@@ -1,0 +1,6 @@
+/*******************************
+    User Variable Overrides
+*******************************/
+
+@backgroundImage: linear-gradient(-180deg, #FABB28 0%, #F99D27 20%);
+@border: 1px solid #FA8328;

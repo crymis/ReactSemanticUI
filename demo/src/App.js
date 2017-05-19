@@ -5,6 +5,7 @@ import CSSTransitionGroup from 'react-addons-css-transition-group';
 import logo from './logo.svg';
 import './App.css';
 import { Button, Icon, Grid, Rating, Popup, Dropdown, Message } from 'semantic-ui-react';
+
 import CardGallery from './components/CardGallery';
 import { getSomeImages } from './data/images';
 import { languageOptions } from './data/text';
@@ -69,7 +70,7 @@ class App extends React.Component {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row centered>
-          <Grid.Column>
+          <Grid.Column textAlign="center">
             <p className="App-intro">Try out Semantic UI React</p>
             <Popup content='How many images?' position='right center' trigger={
               <Rating 
