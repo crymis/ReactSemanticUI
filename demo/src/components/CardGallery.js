@@ -5,6 +5,22 @@ import { colors, imgTitles, imgDescriptions, madeWith } from '../data/text';
 import { getRandomValue } from '../helpers';
 
 class CardGallery extends React.Component {
+
+    constructor(props) {
+      super(props);
+      this.state = {
+        images: props.images,
+      }
+    }
+
+    componentWillReceiveProps() {
+      this.setState(() => {
+        return {
+          images: this.props.images
+        }
+      })
+    }
+
     renderImage(imgLink, i) {
         // <Card color={colors[Math.floor(Math.random()*colors.length)]} image={imgLink} key={i}/>
         return (

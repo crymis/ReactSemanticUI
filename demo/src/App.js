@@ -22,6 +22,17 @@ class App extends React.Component {
     document.activeElement.blur();
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    // deep equal with state
+    let shouldUpdate = false;
+    Object.keys(this.state).map(key => {
+      if(this.state[key] !== nextState[key]) {
+        shouldUpdate = true;
+      }
+    });
+    return shouldUpdate;
+  }
+
   changeLanguage(e, props) {
     this.setState(() => {
       return {notSupported: props.value !== 'English'}
