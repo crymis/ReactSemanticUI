@@ -31,17 +31,20 @@ class App extends React.Component {
     return (
       <Grid padded="vertically">
         <Grid.Row>
-          <Grid.Column width={12}>
+          <Grid.Column>
             <div className="App">
               <div className="App-header">
+                <Dropdown 
+                id="language-selection"
+                className="icon" 
+                floating labeled button 
+                defaultValue={languageOptions[0].value}
+                options={languageOptions} />
                 <img src={logo} className="App-logo" alt="logo" />
                 <h2>Welcome to React</h2>
               </div>
             </div>
           </Grid.Column>
-          <Grid.Colum width={4}>
-            <Dropdown text='Select Language' search floating labeled button className='icon' options={languageOptions} />
-          </Grid.Colum>
         </Grid.Row>
         <Grid.Row centered>
           <Grid.Column>
