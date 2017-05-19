@@ -1,7 +1,10 @@
 import React from 'react';
+// import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import CSSTransitionGroup from 'react-addons-css-transition-group';
+
 import logo from './logo.svg';
 import './App.css';
-import { Button, Icon, Grid, Rating, Popup, Dropdown } from 'semantic-ui-react';
+import { Button, Icon, Grid, Rating, Popup, Dropdown, Message } from 'semantic-ui-react';
 import CardGallery from './components/CardGallery';
 import { getSomeImages } from './data/images';
 import { languageOptions } from './data/text';
@@ -10,12 +13,19 @@ class App extends React.Component {
 
   state = {
     clicked: false,
-    rating: 1
+    rating: 1,
+    notSupported: false
   };
 
   toggleClick(e) {
     this.setState((state) => {return {clicked: !state.clicked}});
     document.activeElement.blur();
+  }
+
+  changeLanguage(e, props) {
+    this.setState(() => {
+      return {notSupported: props.value !== 'English'}
+    })
   }
 
   renderImageCards(e, props) {
@@ -39,7 +49,8 @@ class App extends React.Component {
                 className="icon" 
                 floating labeled button 
                 defaultValue={languageOptions[0].value}
-                options={languageOptions} />
+                options={languageOptions}
+                onChange={(e, props) => this.changeLanguage(e,props)} />
                 <img src={logo} className="App-logo" alt="logo" />
                 <h2>Welcome to React</h2>
               </div>
@@ -72,6 +83,24 @@ class App extends React.Component {
         <Grid.Row centered>
           <Grid.Column width={15}>
             {this.state.clicked ? this.renderImageCards() : null}
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column>
+              <CSSTransitionGroup
+              transitionName='slideUp'
+              transitionEnterTimeout={400}
+              transitionLeaveTimeout={400}>
+                {this.state.notSupported ? 
+                <Message icon id="message">
+                  <Icon name='translate' />
+                  <Message.Content>
+                    <Message.Header>Not Supported!</Message.Header>
+                    This language is not supported yet.
+                  </Message.Content>
+                </Message>
+                : null}
+            </CSSTransitionGroup>
           </Grid.Column>
         </Grid.Row>
       </Grid>
