@@ -1,5 +1,21 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'hornbach gothic', 'hornbach', 'Arial';
+}
+
+
+
+@font-face {
+    font-family: 'hornbach';
+    src: url('../semantic/BadhouseBold.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'hornbach gothic';
+    src: url('../semantic/TradeGothic.otf');
+    font-weight: normal;
+    font-style: normal;
 }

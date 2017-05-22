@@ -3,4 +3,25 @@
 *******************************/
 
 @backgroundImage: linear-gradient(-180deg, #FABB28 0%, #F99D27 20%);
-@border: 1px solid #FA8328;
+@textColor: #FFFFFF;
+@borderBoxShadow: 0px 0px 0px 1px #FA8328;
+@fontFamily: 'hornbach gothic';
+
+
+/* Hovered */
+@hoverBackgroundColor: #F99D27;
+@hoverBackgroundImage: none;
+
+/* Focused */
+@focusBackgroundColor: #F99D27;
+@focusBackgroundImage: none;
+
+/* Pressed Down */
+@downBackgroundColor: #FA8328;
+@downBackgroundImage: none;
+
+
+/* Disabled */
+@disabledBackgroundImage: linear-gradient(-180deg, #FABB28 0%, #FAAD28 20%);
+@disabledBoxShadow: 0px 0px 0px 1px #F99D27;
+@disabledColor: #FA8328;

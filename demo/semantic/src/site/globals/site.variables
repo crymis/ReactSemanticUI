@@ -18,3 +18,19 @@
 @brown          : #A52A2A;
 @grey           : #A0A0A0;
 @black          : #000000;
+
+
+@font-face {
+    font-family: 'hornbach';
+    src: url('BadhouseBold.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'hornbach gothic';
+    src: url('TradeGothic.otf');
+    font-weight: normal;
+    font-style: normal;
+}
