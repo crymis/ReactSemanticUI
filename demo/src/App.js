@@ -6,18 +6,43 @@ import logo from './logo.svg';
 import './App.css';
 import { getSomeImages } from './data/images';
 import { languageOptions } from './data/text';
-import { CardGallery } from './components/CardGallery';
 
+import {deepOrange500} from 'material-ui/styles/colors';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import CardGallery from './components/CardGallery';
 import FlatButton from 'material-ui/FlatButton';
+import Slider from 'material-ui/Slider';
 
 
 
 const styles = {
+  root: {
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  controlRow: {
+    display: 'flex',
+    justifyContent: 'center',
+    'alignItems': 'center'
+  },
   showImageButton: {
-    margin: 0 + ' auto',
-    backgroundColor: '#61dafb'
+    display: 'block',
+    margin: '0 auto',
+    marginTop: '10px',
+    backgroundColor: 'lightgray'
+  },
+  slider: {
+    margin: '0 10px',
+    width: '300px',
+    height: '50px'
   }
 }
+
+const muiTheme = getMuiTheme({
+  palette: {
+    accent1Color: deepOrange500,
+  },
+});
 
 class App extends React.Component {
 
@@ -49,28 +74,32 @@ class App extends React.Component {
     })
   }
 
-  renderImageCards(e, props) {
-    // if (props && props.rating) {
-    //   this.setState(() => { return {rating: props.rating} });
-    // }
-    console.log('test');
+  renderImageCards(e, val) {
+    if(val) {
+      this.setState(() => { return {rating: val} });
+    }
     return (
-      <CardGallery images={getSomeImages(4)}/>
+      <CardGallery images={getSomeImages(this.state.rating)} />
     )
   }
 
     render() {
       return (
-        <MuiThemeProvider>
-          <div>
-            <div className="App">
-              <div className="App-header">
+        <MuiThemeProvider muiTheme={muiTheme}>
+            <div style={styles.root} className="App">
+              <div style={styles.controlRow} className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
                 <h2>Welcome to React</h2>
               </div>
+              <div style={styles.controlRow}>
+                1
+                <Slider style={styles.slider} min={1} max={12} step={1} onChange={(e, val) => this.renderImageCards(e, val)} />
+                12
+              </div>
+              {this.state.rating}
+              <FlatButton style={styles.showImageButton} label='Show images' onClick={() => this.toggleClick()} />
+              {this.state.clicked ? this.renderImageCards() : null}
             </div>
-            <FlatButton style={styles.showImageButton} label='Show images' onClick={() => this.toggleClick()} />
-          </div>
         </MuiThemeProvider>
       )  
     }
