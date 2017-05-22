@@ -25,7 +25,7 @@ class App extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     // deep equal with state
     let shouldUpdate = false;
-    Object.keys(this.state).map(key => {
+    Object.keys(this.state).forEach(key => {
       if(this.state[key] !== nextState[key]) {
         shouldUpdate = true;
       }
