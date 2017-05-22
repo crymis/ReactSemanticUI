@@ -1,12 +1,32 @@
 import React from 'react'
-import { Card, Image, Icon } from 'semantic-ui-react'
 import './CardGallery.css';
 import { colors, imgTitles, imgDescriptions, madeWith } from '../data/text';
 import { getRandomValue } from '../helpers';
 
+
+import {GridList, GridTile} from 'material-ui/GridList';
+import IconButton from 'material-ui/IconButton';
+import Subheader from 'material-ui/Subheader';
+import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+
+
+const styles = {
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+  },
+  gridList: {
+    width: 500,
+    height: 450,
+    overflowY: 'auto',
+  },
+};
+
 class CardGallery extends React.Component {
 
     constructor(props) {
+      console.log('card galery');
       super(props);
       this.state = {
         images: props.images,
@@ -22,37 +42,33 @@ class CardGallery extends React.Component {
     }
 
     renderImage(imgLink, i) {
-        // <Card color={colors[Math.floor(Math.random()*colors.length)]} image={imgLink} key={i}/>
+        console.log('show imgs');
         return (
-            <Card key={i} color={getRandomValue(colors)}>
-              <Image src={imgLink} />
-              <Card.Content>
-                <Card.Header>
-                  {getRandomValue(imgTitles)}
-                </Card.Header>
-                <Card.Meta>
-                  Instagram Image
-                </Card.Meta>
-                <Card.Description>
-                  {getRandomValue(imgDescriptions)}
-                </Card.Description>
-              </Card.Content>
-              <Card.Content extra>
-                <a href='https://instagram.com/danteman8' target='_blank'>
-                  <Icon name='heart' />Made with {getRandomValue(madeWith)}
-                </a>
-              </Card.Content>
-            </Card>
+            <GridTile
+              key={i}
+              title={getRandomValue(imgTitles)}
+              subtitle={<span>by <b>{getRandomValue(imgDescriptions)}</b></span>}
+              actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
+            >
+              <img src={imgLink} />
+            </GridTile>
         )
     }
 
     render() {
+        console.log('show imgs render');
         return (
-          <Card.Group itemsPerRow={4} doubling stackable>
-            {this.props.images.map(this.renderImage)}
-          </Card.Group>
+          <div style={styles.root}>
+            <GridList
+              cellHeight={180}
+              style={styles.gridList}>
+              <Subheader>December</Subheader>
+                {this.props.images.map(this.renderImage)}
+            </GridList>
+          </div>
         )
     }
 }
 
 export default CardGallery;
+
