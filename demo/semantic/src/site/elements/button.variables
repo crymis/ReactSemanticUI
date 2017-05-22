@@ -6,6 +6,9 @@
 @textColor: #FFFFFF;
 @borderBoxShadow: 0px 0px 0px 1px #FA8328;
 @fontFamily: 'hornbach gothic';
+@borderRadius: 2px;
+@lineHeight: 18px;
+@fontSize: 16px;
 
 
 /* Hovered */
@@ -15,6 +18,7 @@
 /* Focused */
 @focusBackgroundColor: #F99D27;
 @focusBackgroundImage: none;
+@focusColor: #fff;
 
 /* Pressed Down */
 @downBackgroundColor: #FA8328;

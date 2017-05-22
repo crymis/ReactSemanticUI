@@ -2,3 +2,8 @@
     User Variable Overrides
 *******************************/
 
+
+
+@menuHeaderFontSize: 30px;
+@selectionTextColor: black;
+
