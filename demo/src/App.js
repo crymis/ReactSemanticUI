@@ -33,8 +33,11 @@ const styles = {
   langHint: {
     position: 'fixed',
     bottom: '0',
+    left: '0',
     backgroundColor: '#eeeeee',
-    width: '400px'
+    width: '100%',
+    height: '45px',
+    padding: '8px'
   },
   controlRow: {
     display: 'flex',
@@ -128,24 +131,23 @@ class App extends React.Component {
             {this.state.rating}
             <FlatButton style={styles.showImageButton} label='Show images' onClick={() => this.toggleClick()} />
             {this.state.clicked ? this.renderImageCards() : null}
+          {/*
             <Snackbar id="message"
               open={this.state.notSupported}
               message={`This language is not supported yet.`}
             />
-          {/*
+          */}
             {this.state.notSupported ?
               <CSSTransitionGroup
-                style={styles.langHint}
                 transitionName='slideUp'
-                transitionEnterTimeout={400}
-                transitionLeaveTimeout={400}>
-                <div>
-                  <i className='material-icons'>translate</i>
+                transitionEnterTimeout={40000}
+                transitionLeaveTimeout={40000}>
+                <span style={styles.langHint}>
+                  <i className='material-icons' style={{marginRight: '5px'}}>translate </i> 
                    This language is not supported yet.
-                </div>
+                </span>
               </CSSTransitionGroup>
             : null}
-          */}
           </div>
       </MuiThemeProvider>
     )  

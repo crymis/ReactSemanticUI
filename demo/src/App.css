@@ -47,24 +47,24 @@
 /* REACT ANIMATIONS */
 .slideUp-enter {
   transform: translateY(100%) !important;
-  transition: transform 0.4s !important;
+  transition: transform 40s !important;
   transition-timing-function: ease-in-out !important;
 }
 
 .slideUp-enter.slideUp-enter-active {
   transform: translateY(0) !important;
-  transition: transform 0.4s !important;
+  transition: transform 40s !important;
   transition-timing-function: ease-in-out !important;
 }
 
 .slideUp-leave {
   transform: translateY(0);
-  transition: transform 0.4s;
+  transition: transform 40s;
   transition-timing-function: ease-in-out;
 }
 
 .slideUp-leave.slideUp-leave-active {
   transform: translateY(100%);
-  transition: transform 0.4s;
+  transition: transform 40s;
   transition-timing-function: ease-in-out;
 }
