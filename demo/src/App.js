@@ -137,17 +137,17 @@ class App extends React.Component {
               message={`This language is not supported yet.`}
             />
           */}
-            {this.state.notSupported ?
-              <CSSTransitionGroup
-                transitionName='slideUp'
-                transitionEnterTimeout={40000}
-                transitionLeaveTimeout={40000}>
-                <span style={styles.langHint}>
+            <CSSTransitionGroup
+              transitionName='slideUp'
+              transitionEnterTimeout={400}
+              transitionLeaveTimeout={400}>
+              {this.state.notSupported ?
+                <span style={styles.langHint} className="translateHint">
                   <i className='material-icons' style={{marginRight: '5px'}}>translate </i> 
                    This language is not supported yet.
                 </span>
-              </CSSTransitionGroup>
-            : null}
+              : null}
+            </CSSTransitionGroup>
           </div>
       </MuiThemeProvider>
     )  
