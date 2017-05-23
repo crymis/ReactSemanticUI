@@ -1,6 +1,7 @@
 import React from 'react';
-// import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
+
+import { Route, Link } from 'react-router-dom';
 
 import logo from './logo.svg';
 import './App.css';
@@ -10,16 +11,29 @@ import CardGallery from './components/CardGallery';
 import { getSomeImages } from './data/images';
 import { languageOptions } from './data/text';
 
+
 class App extends React.Component {
 
   state = {
     clicked: false,
+    showImages: '/',
     rating: 1,
-    notSupported: false
+    notSupported: false,
   };
 
   toggleClick(e) {
-    this.setState((state) => {return {clicked: !state.clicked}});
+    let link = this.state.showImages;
+    if (this.state.showImages === '/') {
+      link = '/images';
+    } else {
+      link = '/';
+    }
+    this.setState((state) => {
+      return {
+        clicked: !state.clicked,
+        showImages: link
+      }
+    });
     document.activeElement.blur();
   }
 
@@ -41,17 +55,24 @@ class App extends React.Component {
   }
 
   renderImageCards(e, props) {
-    if (props && props.rating) {
-      this.setState(() => { return {rating: props.rating} });
-    }
+    // if (props && props.rating) {
+    //   this.setState(() => { return {rating: props.rating} });
+    // }
     return (
-      <CardGallery images={getSomeImages(this.state.rating)}/>
+      <CardGallery images={getSomeImages(4)}/>
+    )
+  }
+
+  renderImageForm() {
+    return (
+      <div>FORM</div>
     )
   }
 
   render() {
     return (
       <Grid padded="vertically">
+
         <Grid.Row>
           <Grid.Column>
             <div className="App">
@@ -69,6 +90,7 @@ class App extends React.Component {
             </div>
           </Grid.Column>
         </Grid.Row>
+
         <Grid.Row centered>
           <Grid.Column textAlign="center">
             <p className="App-intro">Try out Semantic UI React</p>
@@ -81,22 +103,27 @@ class App extends React.Component {
                 onRate={(e, props) => this.renderImageCards(e, props)}/>
               } />
             <br />
-            <Button 
-              animated='vertical'
-              onClick={(e) => this.toggleClick(e)}
-              ref={(btn) => {this.mainButton = btn; }}>
-              <Button.Content visible>{!this.state.clicked ? 'Show Cards' : 'Hide Cards'}</Button.Content>
-              <Button.Content hidden>
-                <Icon name={`${!this.state.clicked ? 'down' : 'up'} arrow`}></Icon>
-              </Button.Content>
-            </Button>
+            <Link to={this.state.showImages}>
+              <Button 
+                animated='vertical'
+                onClick={(e) => this.toggleClick(e)}
+                ref={(btn) => {this.mainButton = btn; }}>
+                <Button.Content visible>{!this.state.clicked ? 'Show Cards' : 'Hide Cards'}</Button.Content>
+                <Button.Content hidden>
+                  <Icon name={`${!this.state.clicked ? 'down' : 'up'} arrow`}></Icon>
+                </Button.Content>
+              </Button>
+            </Link>
           </Grid.Column>
         </Grid.Row>
+
         <Grid.Row centered>
           <Grid.Column width={15}>
-            {this.state.clicked ? this.renderImageCards() : null}
+            <Route path='/images' render={this.renderImageCards} />
+            <Route path='/images/:imageId' render={this.renderImageForm} />
           </Grid.Column>
         </Grid.Row>
+
         <Grid.Row>
           <Grid.Column>
               <CSSTransitionGroup
