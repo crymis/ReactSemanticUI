@@ -1,8 +1,12 @@
 import React from 'react'
-import { Card, Image, Icon } from 'semantic-ui-react'
 import './CardGallery.css';
 import { colors, imgTitles, imgDescriptions, madeWith } from '../data/text';
 import { getRandomValue } from '../helpers';
+
+import Image from 'react-bootstrap/lib/Image';
+import Grid from 'react-bootstrap/lib/Grid';
+import Row from 'react-bootstrap/lib/Row';
+import Col from 'react-bootstrap/lib/Col';
 
 class CardGallery extends React.Component {
 
@@ -24,33 +28,19 @@ class CardGallery extends React.Component {
     renderImage(imgLink, i) {
         // <Card color={colors[Math.floor(Math.random()*colors.length)]} image={imgLink} key={i}/>
         return (
-            <Card key={i} color={getRandomValue(colors)}>
-              <Image src={imgLink} />
-              <Card.Content>
-                <Card.Header>
-                  {getRandomValue(imgTitles)}
-                </Card.Header>
-                <Card.Meta>
-                  Instagram Image
-                </Card.Meta>
-                <Card.Description>
-                  {getRandomValue(imgDescriptions)}
-                </Card.Description>
-              </Card.Content>
-              <Card.Content extra>
-                <a href='https://instagram.com/danteman8' target='_blank'>
-                  <Icon name='heart' />Made with {getRandomValue(madeWith)}
-                </a>
-              </Card.Content>
-            </Card>
+          <Col xs={6} md={4} lg={2} className="imgCard" key={i}>
+            <Image src={imgLink} key={i} responsive />
+            <b>{getRandomValue(imgTitles)}</b> <br />
+            <i>{getRandomValue(imgDescriptions)}</i>
+          </Col>
         )
     }
 
     render() {
         return (
-          <Card.Group itemsPerRow={4} doubling stackable>
-            {this.props.images.map(this.renderImage)}
-          </Card.Group>
+          <Grid>
+            {this.props.images.map(this.renderImage)}      
+          </Grid>
         )
     }
 }

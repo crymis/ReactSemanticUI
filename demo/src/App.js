@@ -3,19 +3,32 @@ import React from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 
 import logo from './logo.svg';
-import './App.css';
 import CardGallery from './components/CardGallery';
 import { getSomeImages } from './data/images';
 import { languageOptions } from './data/text';
 
+import Grid from 'react-bootstrap/lib/Grid';
+import Row from 'react-bootstrap/lib/Row';
 import Button from 'react-bootstrap/lib/Button';
+import DropdownButton from 'react-bootstrap/lib/DropdownButton';
+import MenuItem from 'react-bootstrap/lib/MenuItem';
+import Well from 'react-bootstrap/lib/Well';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
+import './App.css';
+  
+
+const langOps = [];
+languageOptions.forEach(lang => {
+  langOps.push(<MenuItem eventKey={lang.value} key={lang.key}>{lang.text}</MenuItem>);
+});
 
 class App extends React.Component {
 
   state = {
     clicked: false,
-    rating: 1,
+    numberOfImages: 12,
+    selectedLanguage: 'English',
     notSupported: false
   };
 
@@ -35,30 +48,80 @@ class App extends React.Component {
     return shouldUpdate;
   }
 
-  changeLanguage(e, props) {
+  changeLanguage(e) {
     this.setState(() => {
-      return {notSupported: props.value !== 'English'}
+      return {
+        selectedLanguage: e,
+        notSupported: e !== 'English'
+      }
     })
   }
 
-  renderImageCards(e, props) {
-    if (props && props.rating) {
-      this.setState(() => { return {rating: props.rating} });
+  renderImageCards(val) {
+    if (val) {
+      this.setState(() => {
+        return {
+          numberOfImages: val
+        }
+      });
     }
     return (
-      <CardGallery images={getSomeImages(this.state.rating)}/>
+      <CardGallery images={getSomeImages(this.state.numberOfImages)}/>
     )
   }
 
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+      <Grid fluid>
+        <div className="App">
+          <Row className="show-grid">
+            <div className="App-header">
+              <img src={logo} className="App-logo" alt="logo" />
+              <h2>Welcome to React</h2>
+              <div id="language-selection">
+                <DropdownButton 
+                  pullRight 
+                  title={this.state.selectedLanguage} 
+                  id="lang" 
+                  onSelect={(e) => this.changeLanguage(e)}>
+                  {langOps}
+                </DropdownButton>
+              </div>
+            </div>
+          </Row>
+
+          <Row className="show-grid">
+            <input className="numberOfImages"
+              type="range" 
+              min={1} 
+              max={12} 
+              step={1} 
+              ref={(input) => this.range = input} 
+              onChange={() => this.renderImageCards(this.range.value)}/>
+              <div>{this.state.numberOfImages}</div>
+            <Button bsStyle="info" className="showButton" onClick={() => this.toggleClick()}>Show Cards</Button>
+          </Row>
+
+          <Row className="show-grid">
+            {this.state.clicked ? this.renderImageCards() : null}
+          </Row>
+
+          <Row className="show-grid">
+          <CSSTransitionGroup
+            transitionName='slideUp'
+            transitionEnterTimeout={400}
+            transitionLeaveTimeout={400}>
+              {this.state.notSupported ? 
+                <Well id="message" key={!this.state.notSupported}>
+                  <Glyphicon glyph="globe" /> {' '}
+                  This language is not supported yet.
+                </Well>
+              : null}
+          </CSSTransitionGroup>
+          </Row>
+
         </div>
-        <Button bsStyle="info">Show Cards</Button>
-      </div>
+      </Grid>
     )
   }
 
