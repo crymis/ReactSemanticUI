@@ -25,10 +25,6 @@
 
 
 
-.translateHint {
-  transform: translateY(0);
-}
-
 #ddLanguage div div {
   color: white !important;
 }
@@ -55,12 +51,12 @@
 }
 
 .slideUp-enter.slideUp-enter-active {
-  transform: translateY(0) !important;
+  transform: translateY(0%) !important;
   transition: transform 0.4s ease-in-out !important;
 }
 
 .slideUp-leave {
-  transform: translateY(0) !important;
+  transform: translateY(0%) !important;
   transition: transform 0.4s ease-in-out !important;
 }
 

@@ -37,7 +37,8 @@ const styles = {
     backgroundColor: '#eeeeee',
     width: '100%',
     height: '45px',
-    padding: '8px'
+    padding: '8px',
+    tansition: 'transform 0.4s'
   },
   controlRow: {
     display: 'flex',
